@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Quick warehouse check",
+      "type": "process",
+      "command": "python",
+      "args": ["self_check.py", "--adapter", "adapters.myteam:Planner"],
+      "options": {"cwd": "${workspaceFolder}/bench-warehouse"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Full warehouse benchmark with replay",
+      "type": "process",
+      "command": "python",
+      "args": ["run.py", "--adapter", "adapters.myteam:Planner", "--out", "../benchmarks/local_report.json"],
+      "options": {"cwd": "${workspaceFolder}/bench-warehouse"},
+      "problemMatcher": [],
+      "group": {"kind": "test", "isDefault": true}
+    },
+    {
+      "label": "Warehouse correctness tests",
+      "type": "process",
+      "command": "python",
+      "args": ["-m", "unittest", "discover", "-s", "tests", "-v"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "Create warehouse visual demo",
+      "type": "process",
+      "command": "python",
+      "args": ["tools/make_demo.py"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    }
+  ]
+}
